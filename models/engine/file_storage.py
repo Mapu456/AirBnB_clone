@@ -22,7 +22,6 @@ class FileStorage:
         Sets in __objects the obj with key <obj class name>.id
         """
         object_key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        print(object_key)
         FileStorage.__objects[object_key] = obj
 
     def save(self):
@@ -30,5 +29,11 @@ class FileStorage:
         serializes __objects to the JSON file (path: __file_path)
         """
         with open(FileStorage.__file_path, 'w', encoding='UTF8') as f:
-            json.dump(__objects, f)
-        
+            json.dump(FileStorage.__objects, f)
+
+    def reload(self):
+        try:
+            with open(FileStorage.__file_path, 'r', encoding='UTF8') as f:
+                json.load(FileStorage.__objects, f)
+        except FileNotFoundError:
+            pass
