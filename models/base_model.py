@@ -31,17 +31,19 @@ class BaseModel:
         attribute updated_at with the current datetime
         """
         self.updated_at = datetime.now()
-        storage.save(self)
+        storage.save()
 
     def to_dict(self):
         """
         Public instance method that returns a dictionary containing
         all keys/values of __dict__ of the instance.
         """
-        self.__dict__["__class__"] = self.__class__.__name__
-        self.__dict__["created_at"] = datetime.isoformat(self.created_at)
-        self.__dict__["updated_at"] = datetime.isoformat(self.updated_at)
-        return (self.__dict__)
+        new_dict = {}
+        new_dict = self.__dict__.copy()
+        new_dict["__class__"] = self.__class__.__name__
+        new_dict["created_at"] = datetime.isoformat(self.created_at)
+        new_dict["updated_at"] = datetime.isoformat(self.updated_at)
+        return (new_dict)
 
 
 
@@ -66,5 +68,5 @@ if __name__ == "__main__":
     print(my_new_model)
     print(type(my_new_model.created_at))
 
-print("--")
-print(my_model is my_new_model)
+    print("--")
+    print(my_model is my_new_model)
