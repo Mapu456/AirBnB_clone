@@ -22,19 +22,28 @@ class FileStorage:
         Sets in __objects the obj with key <obj class name>.id
         """
         object_key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__objects[object_key] = obj.to_dict()
+        FileStorage.__objects[object_key] = obj
 
     def save(self):
         """
         serializes __objects to the JSON file (path: __file_path)
         """
+        new_dict = {}
+        for key, value in self.all().items():
+            new_dict[key] = value.to_dict().copy()
         with open(FileStorage.__file_path, 'w', encoding='UTF8') as f:
-            data = json.dumps(FileStorage.__objects)
+            data = json.dumps(new_dict)
             f.write(data)
 
     def reload(self):
+        from models.base_model import BaseModel
+        new_dict = {}
         try:
             with open(FileStorage.__file_path, 'r', encoding='UTF8') as f:
-                FileStorage.__objects = json.load(f)
+                new_dict = json.load(f)
+                for key, value in new_dict.items():
+                    class_name = value.get('__class__')
+                    obj = eval(class_name + '(**value)')
+                    self.all()[key] = obj
         except FileNotFoundError as e:
             pass
