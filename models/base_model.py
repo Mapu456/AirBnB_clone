@@ -4,8 +4,10 @@ import uuid
 from datetime import datetime
 from models import storage
 
+
 class BaseModel:
     """Class tha represents model of BaseModel"""
+
     def __init__(self, *args, **kwargs):
         """Constructor method for the BaseModel"""
         if len(kwargs) == 0:
@@ -15,8 +17,10 @@ class BaseModel:
             storage.new(self)
         else:
             self.id = kwargs.get("id")
-            self.created_at = datetime.strptime(kwargs.get("created_at"), "%Y-%m-%dT%H:%M:%S.%f")
-            self.updated_at = datetime.strptime(kwargs.get("updated_at"), "%Y-%m-%dT%H:%M:%S.%f")
+            self.created_at = datetime.strptime(
+                kwargs.get("created_at"), "%Y-%m-%dT%H:%M:%S.%f")
+            self.updated_at = datetime.strptime(
+                kwargs.get("updated_at"), "%Y-%m-%dT%H:%M:%S.%f")
 
     def __str__(self):
         """
@@ -44,29 +48,3 @@ class BaseModel:
         new_dict["created_at"] = datetime.isoformat(self.created_at)
         new_dict["updated_at"] = datetime.isoformat(self.updated_at)
         return (new_dict)
-
-
-
-if __name__ == "__main__":
-    import time
-    my_model = BaseModel()
-    my_model.name = "My_First_Model"
-    my_model.my_number = 89
-    print(my_model.id)
-    print(my_model)
-    print(type(my_model.created_at))
-    print("--")
-    my_model_json = my_model.to_dict()
-    print(my_model_json)
-    print("JSON of my_model:")
-    for key in my_model_json.keys():
-        print("\t{}: ({}) - {}".format(key, type(my_model_json[key]), my_model_json[key]))
-        
-    print("--")
-    my_new_model = BaseModel(**my_model_json)
-    print(my_new_model.id)
-    print(my_new_model)
-    print(type(my_new_model.created_at))
-
-    print("--")
-    print(my_model is my_new_model)
