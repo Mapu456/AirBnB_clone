@@ -43,6 +43,7 @@ class FileStorage:
         be raised)
         """
         from models.base_model import BaseModel
+        from user import User
         new_dict = {}
         try:
             with open(FileStorage.__file_path, 'r', encoding='UTF8') as f:
