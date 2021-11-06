@@ -15,12 +15,12 @@ from models.place import Place
 from models.review import Review
 
 
-
 class HBNBCommand(cmd.Cmd):
     """
     Class that contains the entry point of the command interpreter
     """
-    class_list = [BaseModel, User, State, City, Amenity, Place, Review]
+    class_list = ['BaseModel', 'User', 'State',
+                  'City', 'Amenity', 'Place', 'Review']
     prompt = '(hbnb) '
 
     def do_quit(self, arg):
@@ -38,8 +38,9 @@ class HBNBCommand(cmd.Cmd):
         ' Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id'
         if arg == "":
             print("** class name missing **")
-        elif arg == "BaseModel":
-            p = BaseModel()
+        elif arg in HBNBCommand.class_list:
+            instance_class = ("{}()".format(arg))
+            p = eval(instance_class)
             p.save()
             print(p.id)
         else:
@@ -50,39 +51,44 @@ class HBNBCommand(cmd.Cmd):
         arguments = arg.split(" ")
         if arguments[0] == "":
             print("** class name missing **")
-        elif arguments[0] != "BaseModel":
-            print("** class doesn't exist **")
-        elif arguments[0] == "BaseModel" and len(arguments) == 1:
-            print("** instance id missing **")
+        elif arguments[0] in HBNBCommand.class_list:
+            class_string = arguments[0]
+            if arguments[0] == class_string and len(arguments) == 1:
+                print("** instance id missing **")
+            else:
+                if arguments[0] == class_string and len(arguments[1]) != 0:
+                    all_objects = storage.all()
+                    switch = 0
+                    for obj_id in all_objects.keys():
+                        obj = all_objects[obj_id]
+                        if obj.id == arguments[1]:
+                            print(obj)
+                            switch = 1
+                    if switch == 0:
+                        print("** no instance found **")
         else:
-            if arguments[0] == "BaseModel" and len(arguments[1]) != 0:
-                all_objects = storage.all()
-                switch = 0
-                for obj_id in all_objects.keys():
-                    obj = all_objects[obj_id]
-                    if obj.id == arguments[1]:
-                        print(obj)
-                        switch = 1
-                if switch == 0:
-                    print("** no in stance found **")
+            print("** class doesn't exist **")
 
     def do_destroy(self, arg):
         'Deletes an instance based on the class name and id (save the change into the JSON file)'
         arguments = arg.split(" ")
         if arguments[0] == "":
             print("** class name missing **")
-        elif arguments[0] != "BaseModel":
-            print("** class doesn't exist **")
-        elif arguments[0] == "BaseModel" and len(arguments) == 1:
-            print("** instance id missing **")
+        elif arguments[0] in HBNBCommand.class_list:
+            class_string = arguments[0]
+            if arguments[0] == class_string and len(arguments) == 1:
+                print("** instance id missing **")
+            else:
+                if arguments[0] == class_string and len(arguments[1]) != 0:
+                    all_objects = storage.all()
+                    try:
+                        del all_objects["{}.{}".format(
+                            arguments[0], arguments[1])]
+                        storage.save()
+                    except KeyError as e:
+                        print("** no instance found **")
         else:
-            if arguments[0] == "BaseModel" and len(arguments[1]) != 0:
-                all_objects = storage.all()
-                try:
-                    del all_objects["{}.{}".format(arguments[0], arguments[1])]
-                    storage.save()
-                except KeyError as e:
-                    print("** no in stance found **")
+            print("** class doesn't exist **")
 
     def do_all(self, arg):
         'Prints all string representation of all instances based or not on the class name'
@@ -94,13 +100,15 @@ class HBNBCommand(cmd.Cmd):
                 obj = all_objects[obj_id]
                 objs_list.append(str(obj))
             print(objs_list)
-        if arguments[0] == "BaseModel":
-            all_objects = storage.all()
-            for obj_id in all_objects.keys():
-                obj = all_objects[obj_id]
-                if obj.__class__.__name__ == "BaseModel":
-                    objs_list.append(str(obj))
-            print(objs_list)
+        elif arguments[0] in HBNBCommand.class_list:
+            class_string = arguments[0]
+            if arguments[0] == class_string:
+                all_objects = storage.all()
+                for obj_id in all_objects.keys():
+                    obj = all_objects[obj_id]
+                    if obj.__class__.__name__ == class_string:
+                        objs_list.append(str(obj))
+                print(objs_list)
         else:
             print("** class doesn't exist **")
 
@@ -109,28 +117,39 @@ class HBNBCommand(cmd.Cmd):
         arguments = arg.split(" ")
         if arguments[0] == "":
             print("** class name missing **")
-        elif arguments[0] != "BaseModel":
-            print("** class doesn't exist **")
-        elif arguments[0] == "BaseModel" and len(arguments) == 1:
-            print("** instance id missing **")
-        elif len(arguments) == 3:
-            print("** value missing **")
-        elif len(arguments) == 2:
-            print("** attribute name missing **")
-        else:
-            if arguments[0] == "BaseModel" and len(arguments[1]) != 0:
+        elif arguments[0] in HBNBCommand.class_list:
+            class_string = arguments[0]
+            if arguments[0] == class_string and len(arguments) == 1:
+                print("** instance id missing **")
+            elif len(arguments) == 2:
                 all_objects = storage.all()
                 switch = 0
                 for obj_id in all_objects.keys():
                     obj = all_objects[obj_id]
                     if obj.id == arguments[1]:
-                        string_cast = json.loads(arguments[3])
-                        setattr(obj, arguments[2], string_cast)
-                        storage.save()
+                        print("** attribute name missing **")
                         switch = 1
                         break
                 if switch == 0:
                     print("** no instance found **")
+            elif len(arguments) == 3:
+                print("** value missing **")
+            else:
+                if arguments[0] == class_string and len(arguments[1]) != 0:
+                    all_objects = storage.all()
+                    switch = 0
+                    for obj_id in all_objects.keys():
+                        obj = all_objects[obj_id]
+                        if obj.id == arguments[1]:
+                            string_cast = json.loads(arguments[3])
+                            setattr(obj, arguments[2], string_cast)
+                            storage.save()
+                            switch = 1
+                            break
+                    if switch == 0:
+                        print("** no instance found **")
+        else:
+            print("** class doesn't exist **")
 
 
 if __name__ == '__main__':
