@@ -2,6 +2,7 @@
 """Module that defines all common attributes/methods for other classes """
 
 import cmd
+import json
 import sys
 from models.base_model import BaseModel
 from models import storage
@@ -101,15 +102,23 @@ class HBNBCommand(cmd.Cmd):
         elif arguments[0] == "BaseModel" and len(arguments) == 1:
             print("** instance id missing **")
         elif len(arguments) == 3:
+            print("** value missing **")
+        elif len(arguments) == 2:
             print("** attribute name missing **")
         else:
             if arguments[0] == "BaseModel" and len(arguments[1]) != 0:
                 all_objects = storage.all()
+                switch = 0
                 for obj_id in all_objects.keys():
                     obj = all_objects[obj_id]
                     if obj.id == arguments[1]:
-                        setattr(obj, arguments[2], arguments[3])
+                        string_cast = json.loads(arguments[3])
+                        setattr(obj, arguments[2], string_cast)
                         storage.save()
+                        switch = 1
+                        break
+                if switch == 0:
+                    print("** no instance found **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
