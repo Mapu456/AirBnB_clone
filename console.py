@@ -47,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
                 switch = 0
                 for obj_id in all_objects.keys():
                     obj = all_objects[obj_id]
-                    if obj["id"] == arguments[1]:
+                    if obj.id == arguments[1]:
                         print(obj)
                         switch = 1
                 if switch == 0:
@@ -69,7 +69,47 @@ class HBNBCommand(cmd.Cmd):
                     del all_objects["{}.{}".format(arguments[0], arguments[1])]
                     storage.save()
                 except KeyError as e:
-                        print("** no in stance found **")
+                    print("** no in stance found **")
+
+    def do_all(self, arg):
+        'Prints all string representation of all instances based or not on the class name'
+        objs_list = []
+        arguments = arg.split(" ")
+        if arguments[0] == "":
+            all_objects = storage.all()
+            for obj_id in all_objects.keys():
+                obj = all_objects[obj_id]
+                objs_list.append(str(obj))
+            print(objs_list)
+        if arguments[0] == "BaseModel":
+            all_objects = storage.all()
+            for obj_id in all_objects.keys():
+                obj = all_objects[obj_id]
+                if obj.__class__.__name__ == "BaseModel":
+                    objs_list.append(str(obj))
+            print(objs_list)
+        else:
+            print("** class doesn't exist **")
+
+    def do_update(self, arg):
+        'Updates an instance based on the class name and id by adding or updating attribute'
+        arguments = arg.split(" ")
+        if arguments[0] == "":
+            print("** class name missing **")
+        elif arguments[0] != "BaseModel":
+            print("** class doesn't exist **")
+        elif arguments[0] == "BaseModel" and len(arguments) == 1:
+            print("** instance id missing **")
+        elif len(arguments) == 3:
+            print("** attribute name missing **")
+        else:
+            if arguments[0] == "BaseModel" and len(arguments[1]) != 0:
+                all_objects = storage.all()
+                for obj_id in all_objects.keys():
+                    obj = all_objects[obj_id]
+                    if obj.id == arguments[1]:
+                        setattr(obj, arguments[2], arguments[3])
+                        storage.save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
