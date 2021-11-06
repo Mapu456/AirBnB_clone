@@ -36,6 +36,12 @@ class FileStorage:
             f.write(data)
 
     def reload(self):
+        """
+        deserializes the JSON file to __objects (only if the
+        JSON file (__file_path) exists ; otherwise, do nothing.
+        If the file doesn’t exist, no exception should 7
+        be raised)
+        """
         from models.base_model import BaseModel
         new_dict = {}
         try:

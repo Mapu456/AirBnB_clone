@@ -9,6 +9,9 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
+    """
+    Class that contains the entry point of the command interpreter
+    """
     prompt = '(hbnb) '
 
     def do_quit(self, arg):
@@ -119,6 +122,7 @@ class HBNBCommand(cmd.Cmd):
                         break
                 if switch == 0:
                     print("** no instance found **")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
