@@ -14,6 +14,7 @@ class TestAmenity(unittest.TestCase):
         self.new_amenity = Amenity()
 
     def tearDown(self):
+        """check the type attributes"""
         self.new_amenity = None
 
     def test_amenity(self):
