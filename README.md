@@ -9,6 +9,12 @@ You have to give permissions to file ```console.py``` and then execute with ```.
 
 ## HOW TO USE IT
 
+
+| Command | Description |
+| :---         |     :---:      |
+| ```EOF```, ```quit``` or ```Ctrl + c``` | Allows you to exit the program      |
+| git diff     | git diff       |
+
 | Command | Description |
 | ```EOF```, ```quit``` or ```Ctrl + c``` | Allows you to exit the program |
 | ```create <class>``` |  Creates a new instance of ```class```, saves it (to the JSON file) and prints the ```id``` |
