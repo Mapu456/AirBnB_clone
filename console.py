@@ -39,9 +39,11 @@ class HBNBCommand(cmd.Cmd):
             elif args[1][0:5] == 'show(' and args[0] in HBNBCommand.class_list:
                 return cmd.Cmd.onecmd(self, "{} {} {}".
                                       format('show', args[0], args[1][6:-2]))
-            elif args[1][0:8] == 'destroy(' and args[0] in HBNBCommand.class_list:
-                return cmd.Cmd.onecmd(self, "{} {} {}".
-                                      format('destroy', args[0], args[1][9:-2]))
+            elif args[1][0:8] == 'destroy(' and \
+                    args[0] in HBNBCommand.class_list:
+                return (cmd.Cmd.onecmd(self, "{} {} {}".
+                                       format('destroy', args[0],
+                                              args[1][9:-2])))
             else:
                 return cmd.Cmd.onecmd(self, "*** Unknown syntax: {}".format(s))
         else:
