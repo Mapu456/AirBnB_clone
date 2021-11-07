@@ -23,6 +23,34 @@ class HBNBCommand(cmd.Cmd):
                   'City', 'Amenity', 'Place', 'Review']
     prompt = '(hbnb) '
 
+    def onecmd(self, s):
+        args = s.split(".")
+        if len(args) > 1:
+            if args[1] == 'all()' and args[0] in HBNBCommand.class_list:
+                return cmd.Cmd.onecmd(self, "{} {}".format('all', args[0]))
+            elif args[1] == 'count()' and args[0] in HBNBCommand.class_list:
+                count = 0
+                all_objects = storage.all()
+                for obj_id in all_objects.keys():
+                    obj = all_objects[obj_id]
+                    if obj.__class__.__name__ == args[0]:
+                        count += 1
+                print(count)
+            elif args[1][0:5] == 'show(' and args[0] in HBNBCommand.class_list:
+                return cmd.Cmd.onecmd(self, "{} {} {}".
+                                      format('show', args[0], args[1][6:-2]))
+            elif args[1][0:8] == 'destroy(' and args[0] in HBNBCommand.class_list:
+                return cmd.Cmd.onecmd(self, "{} {} {}".
+                                      format('destroy', args[0], args[1][9:-2]))
+            """
+             elif args[1][0:7] == 'update(' and args[0] in HBNBCommand.class_list:
+                 attr = args[1].split(", ")
+            """
+            else:
+                return cmd.Cmd.onecmd(self, "*** Unknown syntax: {}".format(s))
+        else:
+            return cmd.Cmd.onecmd(self, s)
+
     def do_quit(self, arg):
         'Quit command to exit the program'
         return True
