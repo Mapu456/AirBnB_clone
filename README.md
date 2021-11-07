@@ -22,4 +22,25 @@ You have to give permissions to file ```console.py``` and then execute with ```.
 | ```<class name>.show(<id>)``` | Update your command interpreter (```console.py```) to retrieve an instance based on its ```id``` |
 
 
-## EXAMPLES
+## Examples
+
+### ```EOF```, ```quit``` or ```Ctrl + c```
+
+```
+guillaume@ubuntu:~/AirBnB$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+
+(hbnb) 
+(hbnb) help quit
+Quit command to exit the program
+
+(hbnb) 
+(hbnb) 
+(hbnb) quit 
+guillaume@ubuntu:~/AirBnB$ 
+```
+
