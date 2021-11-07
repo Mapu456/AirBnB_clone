@@ -4,10 +4,10 @@ This is the first part of building our first web application: the AirBnB clone. 
 ## Description
 In this first step, the objects will be created, updated, destroyed and read through the console (command interpreter) with the help of a JSON file (the objects will be stored).
 
-## HOW TO START IT
+## How to start it
 You have to give permissions to file ```console.py``` and then execute with ```./console.py```
 
-## HOW TO USE IT
+## How to use it
 
 
 | Command | Description |
