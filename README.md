@@ -16,8 +16,7 @@ You have to give permissions to file ```console.py``` and then execute with ```.
 | ```create <class>```     | Creates a new instance of ```class```, saves it (to the JSON file) and prints the ```id```       |
 | ```show <class> <id>``` | Prints the string representation of an instance based on the class```class``` name and ```id``` |
 | ```destroy <class> <id>``` | Deletes an instance based on the ```class``` name and ```id``` (save the change into the JSON file) |
-| ```all <class>```
-```<class name>.all()```  or ```all``` |  Prints all string representation of all instances based or not on the ```class``` name |
+| ```all <class>``` , ```<class name>.all()```  or ```all``` |  Prints all string representation of all instances based or not on the ```class``` name |
 | ```update <class name> <id> <attribute name> "<attribute value>"``` | Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file) |
 
 
