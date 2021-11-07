@@ -17,7 +17,7 @@ You have to give permissions to file ```console.py``` and then execute with ```.
 | ```show <class> <id>``` | Prints the string representation of an instance based on the class```class``` name and ```id``` |
 | ```destroy <class> <id>``` or ```<class name>.destroy(<id>)``` | Deletes an instance based on the ```class``` name and ```id``` (save the change into the JSON file) |
 | ```all <class>``` , ```<class name>.all()```  or ```all``` |  Prints all string representation of all instances based or not on the ```class``` name |
-| ```update <class name> <id> <attribute name> "<attribute value>"``` | Updates an instance based on the ```class``` name and ```id``` by adding or updating attribute (save the change into the JSON file) |
+| ```update <class name> <id> <attribute name> "<attribute value>"``` or ```<class name>.update(<id>, <attribute name>, <attribute value>)``` | Updates an instance based on the ```class``` name and ```id``` by adding or updating attribute (save the change into the JSON file) |
 | ```<class name>.count()``` | Update your command interpreter (```console.py```) to retrieve the number of instances of a class |
 | ```<class name>.show(<id>)``` | Update your command interpreter (```console.py```) to retrieve an instance based on its ```id``` |
 
@@ -104,6 +104,19 @@ guillaume@ubuntu:~/AirBnB$ ./console.py
 (hbnb)
 (hbnb) update BaseModel 49faff9a-6318-451f-87b6-910505c55907 first_name "Betty"
 (hbnb)
+```
+or
+```
+guillaume@ubuntu:~/AirBnB$ ./console.py
+(hbnb) User.show("38f22813-2753-4d42-b37c-57a17f1e4f88")
+[User] (38f22813-2753-4d42-b37c-57a17f1e4f88) {'first_name': 'Betty', 'last_name': 'Bar', 'created_at': datetime.datetime(2017, 9, 28, 21, 11, 42, 848279), 'updated_at': datetime.datetime(2017, 9, 28, 21, 11, 42, 848291), 'password': 'b9be11166d72e9e3ae7fd407165e4bd2', 'email': 'airbnb@mail.com', 'id': '38f22813-2753-4d42-b37c-57a17f1e4f88'}
+(hbnb)
+(hbnb) User.update("38f22813-2753-4d42-b37c-57a17f1e4f88", "first_name", "John")
+(hbnb) User.update("38f22813-2753-4d42-b37c-57a17f1e4f88", "age", 89)
+(hbnb)
+(hbnb) User.show("38f22813-2753-4d42-b37c-57a17f1e4f88")
+[User] (38f22813-2753-4d42-b37c-57a17f1e4f88) {'age': 89, 'first_name': 'John', 'last_name': 'Bar', 'created_at': datetime.datetime(2017, 9, 28, 21, 11, 42, 848279), 'updated_at': datetime.datetime(2017, 9, 28, 21, 15, 32, 299055), 'password': 'b9be11166d72e9e3ae7fd407165e4bd2', 'email': 'airbnb@mail.com', 'id': '38f22813-2753-4d42-b37c-57a17f1e4f88'}
+(hbnb) 
 ```
 
 ### ```count``` command
