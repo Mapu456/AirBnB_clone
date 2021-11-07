@@ -42,10 +42,6 @@ class HBNBCommand(cmd.Cmd):
             elif args[1][0:8] == 'destroy(' and args[0] in HBNBCommand.class_list:
                 return cmd.Cmd.onecmd(self, "{} {} {}".
                                       format('destroy', args[0], args[1][9:-2]))
-            """
-             elif args[1][0:7] == 'update(' and args[0] in HBNBCommand.class_list:
-                 attr = args[1].split(", ")
-            """
             else:
                 return cmd.Cmd.onecmd(self, "*** Unknown syntax: {}".format(s))
         else:
