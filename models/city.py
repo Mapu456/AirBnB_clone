@@ -6,5 +6,8 @@ from models.state import State
 
 class City(BaseModel):
     """Class that represents model of state"""
-    state_id = State.id
+    if State.id is not None:
+        state_id = State.id
+    else:
+        state_id = ""
     name = ""
