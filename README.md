@@ -11,7 +11,7 @@ You have to give permissions to file ```console.py``` and then execute with ```.
 
 
 | Command | Description |
-| :---         |     :---     |
+| :---         |     :---       |
 | ```EOF```, ```quit``` or ```Ctrl + c``` | Allows you to exit the program      |
 | ```create <class>```     | Creates a new instance of ```class```, saves it (to the JSON file) and prints the ```id```       |
 | ```show <class> <id>``` | Prints the string representation of an instance based on the class```class``` name and ```id``` |
@@ -20,7 +20,6 @@ You have to give permissions to file ```console.py``` and then execute with ```.
 | ```update <class name> <id> <attribute name> "<attribute value>"``` | Updates an instance based on the ```class``` name and ```id``` by adding or updating attribute (save the change into the JSON file) |
 | ```<class name>.count()``` | Update your command interpreter (```console.py```) to retrieve the number of instances of a class |
 | ```<class name>.show(<id>)``` | Update your command interpreter (```console.py```) to retrieve an instance based on its ```id``` |
-
 
 
 ## EXAMPLES
