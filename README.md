@@ -9,5 +9,9 @@ You have to give permissions to file ```console.py``` and then execute with ```.
 
 ## HOW TO USE IT
 
+| Command | Description |
+| ```EOF```, ```quit``` or ```Ctrl + c``` | Allows you to exit the program |
+| ```create <class>``` |  Creates a new instance of ```class```, saves it (to the JSON file) and prints the ```id``` |
+| ```show <class> <id>``` | Prints the string representation of an instance based on the class name and id |
 
 ## EXAMPLES
