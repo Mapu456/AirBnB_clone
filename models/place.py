@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 """Module that defines all common attributes/methods for other classes """
 from models.base_model import BaseModel
-
+from models.city import City
+from models.user import User
 
 class Place(BaseModel):
     """Class that represents model of Place"""
-    city_id = ""
-    user_id = ""
+    city_id = City.id
+    user_id = User.id
     name = ""
     description = ""
     number_rooms = 0
