@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
                         for i in dict_attr:
                             key_value = i.split(": ")
                             value = json.loads(key_value[1])
-                            setattr(obj, key_value[0], value)
+                            setattr(obj, key_value[0][1:-1], value)
                         storage.save()
                         break
             else:
