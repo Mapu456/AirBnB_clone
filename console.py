@@ -45,12 +45,27 @@ class HBNBCommand(cmd.Cmd):
                                        format('destroy', args[0],
                                               args[1][9:-2])))
             elif args[1][0:7] == 'update(' and \
+                 args[0] in HBNBCommand.class_list and args[1].find("{") == -1:
+                attr = args[1].split(", ")
+                return cmd.Cmd.onecmd(self, "{} {} {} {} {}".
+                                      format('update', args[0],
+                                             attr[0][8:-1], attr[1][1:-1],
+                                             attr[2][0:-1]))
+            elif args[1][0:7] == 'update(' and \
                  args[0] in HBNBCommand.class_list:
-                 attr = args[1].split(", ")
-                 return cmd.Cmd.onecmd(self, "{} {} {} {} {}".
-                                       format('update', args[0],
-                                              attr[0][8:-1], attr[1][1:-1],
-                                              attr[2][0:-1]))
+                attr = args[1][0:-2].split(", {")
+                all_objects = storage.all()
+                for obj_id in all_objects.keys():
+                    obj = all_objects[obj_id]
+                    if obj.id == attr[0][8:-1] and \
+                       obj.__class__.__name__ == args[0]:
+                        dict_attr = attr[1].split(", ")
+                        for i in dict_attr:
+                            key_value = i.split(": ")
+                            value = json.loads(key_value[1])
+                            setattr(obj, key_value[0], value)
+                        storage.save()
+                        break
             else:
                 return cmd.Cmd.onecmd(self, "*** Unknown syntax: {}".format(s))
         else:
