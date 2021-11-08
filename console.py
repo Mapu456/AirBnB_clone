@@ -94,7 +94,8 @@ class HBNBCommand(cmd.Cmd):
                     switch = 0
                     for obj_id in all_objects.keys():
                         obj = all_objects[obj_id]
-                        if obj.id == arguments[1]:
+                        if obj.id == arguments[1] and \
+                           obj.__class__.__name__ == arguments[0]:
                             print(obj)
                             switch = 1
                     if switch == 0:
