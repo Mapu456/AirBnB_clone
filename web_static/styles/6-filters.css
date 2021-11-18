@@ -19,19 +19,23 @@
 	font-size: 14px;
 	margin-top: 0px;
 }
-section.filters div.amenities {
-    margin-left: -4px;
-}
 .popover {
 	display: none;
 	background-color: #FAFAFA;
-	width: 100%;
+	width: 300px;
 	border: solid 1px #DDDDDD;
 	border-radius: 4px;
+	margin-left: 0%;
 }
 .popover h2 {
 	font-size: 16px;
 }
-.locations:hover .popover {
+ul {
+    list-style-type: none;
+}
+li {
+    line-height: 1.6;
+}
+.locations:hover .popover, .amenities:hover .popover {
 	display: block;
 }
